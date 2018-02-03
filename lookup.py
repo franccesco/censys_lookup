@@ -1,9 +1,16 @@
 import requests
 import os
+from sys import exit
 
 # importing dotenv
+# remember to rename dotenv_example to .env and set your keys
 from dotenv import load_dotenv, find_dotenv
-load_dotenv(find_dotenv())
+if os.path.isfile('.env'):
+    load_dotenv(find_dotenv())
+else:
+    print('Set up .env credentials to continue.')
+    print('Check out dotenv_example for more info.')
+    exit(1)
 
 
 class CensysLookup():
