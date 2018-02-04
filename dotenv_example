@@ -1,0 +1,5 @@
+# Enter here your API UID and your secret from Censys
+# https://censys.io/account/api
+
+API_ID = xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+SECRET = oZExhu9Fr0opP3Zpi68lKy3MZwavAWgv
