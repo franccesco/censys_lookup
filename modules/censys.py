@@ -30,11 +30,14 @@ class CensysLookup():
 
     def check_heartbleed(self):
         """Check if host service is heartbleed vulnerable."""
-        heartbleed_status = (self.ip_info['443']
-                                         ['https']
-                                         ['heartbleed']
-                                         ['heartbleed_vulnerable'])
-        return heartbleed_status
+        if 'heartbleed' in self.ip_info:
+            heartbleed_status = (self.ip_info['443']
+                                             ['https']
+                                             ['heartbleed']
+                                             ['heartbleed_vulnerable'])
+            return heartbleed_status
+        else:
+            return "No data available."
 
     def asn(self):
         """Returns ASN information."""
@@ -42,3 +45,7 @@ class CensysLookup():
                     'CIDR': self.ip_info['autonomous_system']['routed_prefix'],
                     'ASN': self.ip_info['autonomous_system']['asn']}
         return asn_info
+
+    def get_raw(self):
+        """Returns a RAW JSON of Censys API."""
+        return self.ip_info

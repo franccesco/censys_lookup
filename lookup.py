@@ -39,8 +39,7 @@ if __name__ == '__main__':
     for port in open_ports:
         print(port.capitalize())
 
+    print('\nAdditional Information:')
+    print('=======================')
     heartbleed_status = censys_lookup.check_heartbleed()
-    if heartbleed_status:
-        print('\nVulnerable to Heartbleed')
-    else:
-        print('\nNot vulnerable to Heartbleed')
+    print('Heartbleed vulnerable: {}'.format(heartbleed_status))
