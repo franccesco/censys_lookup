@@ -9,6 +9,8 @@ name = "pypi"
 
 requests = "*"
 python-dotenv = "*"
+colorama = "*"
+termcolor = "*"
 
 
 [dev-packages]
