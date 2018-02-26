@@ -138,7 +138,7 @@ GitHub.sublime-settings
 
 ### venv ###
 # Linux
-bin/ 
+bin/
 include/
 
 # Window
@@ -166,3 +166,4 @@ pip-selfcheck.json
 
 # End of https://www.gitignore.io/api/venv,python,virtualenv,sublimetext
 .env
+test.py

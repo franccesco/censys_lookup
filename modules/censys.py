@@ -30,7 +30,7 @@ class CensysLookup():
 
     def check_heartbleed(self):
         """Check if host service is heartbleed vulnerable."""
-        if 'heartbleed' in self.ip_info:
+        if '443' in self.ip_info:
             heartbleed_status = (self.ip_info['443']
                                              ['https']
                                              ['heartbleed']
@@ -41,7 +41,7 @@ class CensysLookup():
 
     def asn(self):
         """Returns ASN information."""
-        asn_info = {'Name': self.ip_info['autonomous_system']['organization'],
+        asn_info = {'Name': self.ip_info['autonomous_system']['name'],
                     'CIDR': self.ip_info['autonomous_system']['routed_prefix'],
                     'ASN': self.ip_info['autonomous_system']['asn']}
         return asn_info
