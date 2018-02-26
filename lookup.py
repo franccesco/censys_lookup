@@ -4,10 +4,21 @@ import argparse
 from sys import exit
 from modules import censys
 from os import path
-
-# importing dotenv
-# remember to rename dotenv_example to .env and set your keys
 from dotenv import load_dotenv, find_dotenv
+
+# colorama initialization
+from colorama import init
+from termcolor import colored
+init()
+
+
+# define spacing
+def space():
+    print(' - ', end='')
+
+
+# importing dotenv keys
+# remember to rename dotenv_example to .env and set your keys
 if path.isfile('.env'):
     load_dotenv(find_dotenv())
 else:
@@ -15,31 +26,37 @@ else:
     print('Check out dotenv_example for more info.')
     exit(1)
 
-# program arguments
+# program CLI arguments
 parser = argparse.ArgumentParser()
 parser.add_argument('host', type=str, help="Host to analize.")
 args = parser.parse_args()
 
 if __name__ == '__main__':
 
-    # checking ports, heartbleed and other goodies from Censys
+    # requesting Censys data about the host
     censys_lookup = censys.CensysLookup(args.host)
 
-    print('Information for: {}'.format(args.host))
-
-    print('\nAutonomous System:')
-    print('=======================')
+    # ASN Information
     asn_info = censys_lookup.asn()
     for key, value in asn_info.items():
-        print('{}: {}'.format(key, value))
+        print('{}:\n - {}'.format(key, value))
 
+    # open ports
     open_ports = censys_lookup.get_openports()
-    print('\n{} ports found:'.format(len(open_ports)))
-    print('=======================')
+    print("Open ports:")
     for port in open_ports:
-        print(port.capitalize())
+        space()
+        print(colored(port, 'green'))
 
-    print('\nAdditional Information:')
-    print('=======================')
+    # big red alert if heartbleed is found
     heartbleed_status = censys_lookup.check_heartbleed()
-    print('Heartbleed vulnerable: {}'.format(heartbleed_status))
+    print('Heartbleed: ')
+    if heartbleed_status == 'No data available.':
+        space()
+        print(colored(heartbleed_status, 'white', 'on_grey'))
+    elif heartbleed_status is True:
+        space()
+        print(colored('443/HTTPS VULNERABLE'), )
+    elif heartbleed_status is False:
+        space()
+        print(colored('443/https not vulnerable.', 'green'))
