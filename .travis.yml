@@ -8,6 +8,7 @@ before_script:
 script:
 - pipenv run python test_lookup.py
 after_success:
+  - pipenv run coverage run test_lookup.py
   - pipenv run coveralls
 env:
   global:
