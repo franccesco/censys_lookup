@@ -17,6 +17,8 @@ termcolor = "*"
 
 pudb = "*"
 "flake8" = "*"
+python-coveralls = "*"
+coverage = "*"
 
 
 [requires]
