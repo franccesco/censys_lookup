@@ -16,6 +16,7 @@ termcolor = "*"
 [dev-packages]
 
 pudb = "*"
+"flake8" = "*"
 
 
 [requires]
